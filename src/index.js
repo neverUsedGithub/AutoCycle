@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits } from "discord.js";
+import { ActivityType, Client, GatewayIntentBits } from "discord.js";
 import { trivia } from "./trivia.js";
 import { config } from "dotenv";
 config();
@@ -42,6 +42,15 @@ bot.on("messageCreate", (msg) => {
 
 bot.on("ready", () => {
     console.log("The bot is online!");
+    bot.user?.setPresence({
+        status: "online",
+        activities: [
+            {
+                name: `Automating cycle bot in ${bot.guilds.cache.size} server${bot.guilds.cache.size !== 1 ? "s" : ""}`,
+                type: ActivityType.Playing
+            }
+        ]
+    })
 });
 
 bot.login(process.env.TOKEN);
